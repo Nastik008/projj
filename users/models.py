@@ -27,7 +27,7 @@ class Team(models.Model):
     Модель команды
     """
     number = models.IntegerField(verbose_name="Номер команды")
-    name = models.CharField(verbose_name="Название команды", unique=True)
+    name = models.CharField(max_length=255, verbose_name="Название команды", unique=True)
     project_topic = models.CharField(verbose_name="Тема проекта", max_length=255, null=True, blank=True)
     project_description = models.TextField(verbose_name="Описание проекта")
     completed_tasks = models.ManyToManyField(Task, verbose_name="Выполненные задачи", null=True, blank=True)
@@ -38,7 +38,7 @@ class UserProfile(models.Model):
     """
     Профиль пользователя с доп информацией
     """
-    class TeamRoles(models.Choices):
+    class TeamRoles(models.TextChoices):
         """
         Выборы ролей для команд
         """
@@ -51,7 +51,7 @@ class UserProfile(models.Model):
     email = models.EmailField(max_length=32, blank=True, null=True, verbose_name="Почта:")
     phone = models.CharField(max_length=32, blank=True, null=True, verbose_name="Номер:")
     # Часть студентов
-    stud_group = models.ForeignKey(StudentGroup, null=True, blank=True)
+    stud_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, null=True, blank=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE)
     team_role = models.CharField(verbose_name="Роль в команде", choices=TeamRoles.choices, blank=True, null=True, max_length=64)
 
