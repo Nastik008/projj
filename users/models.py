@@ -52,13 +52,13 @@ class UserProfile(models.Model):
 
     # Общая часть
     user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
-    role = models.ForeignKey(Group, verbose_name="Роль", choices=Roles.choices, on_delete=models.CASCADE)
+    role = models.ForeignKey(Group, verbose_name="Роль", on_delete=models.CASCADE)
     tg = models.CharField(max_length=32, blank=True, null=True, verbose_name="Телеграм:")
     email = models.EmailField(max_length=32, blank=True, null=True, verbose_name="Почта:")
     phone = models.CharField(max_length=32, blank=True, null=True, verbose_name="Телефон:")
     # Часть студентов
     stud_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, null=True, blank=True)
-    team = models.ForeignKey(Team, on_delete=models.CASCADE)
+    team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True, blank=True)
     team_role = models.CharField(verbose_name="Роль в команде", choices=TeamRoles.choices, blank=True, null=True, max_length=64)
 
 
