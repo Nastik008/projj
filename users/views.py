@@ -1,14 +1,35 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.views.generic import CreateView, TemplateView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import View
-from .forms import UserProfileForm
-from django.contrib.auth import login, authenticate
+from .forms import LoginForm
+from django.contrib.auth import authenticate, login
 
 
-class LoginView(TemplateView):
-    template_name = 'users/login.html'
+
+def LoginView(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = authenticate(request, username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
+            if user is not None:
+                login(request,user)
+                messages.success(request, 'Login successfully done')
+                return redirect('user_profile')
+            else:
+                messages.error(request, "Invalid credentials provided")
+                return redirect('login')
+    return render(request, 'users/login.html')
+
+
+class ProfileUser(TemplateView):
+    template_name = "user_profile.html"
+        
+
+
+
 
 class RegisterUser(View):
     def get(self, request):
