@@ -51,7 +51,7 @@ class UserProfile(models.Model):
         STUDENT = "Студент", "Студент"
 
     # Общая часть
-    user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE)
+    user = models.OneToOneField(User, verbose_name="Пользователь", on_delete=models.CASCADE, blank=True)
     role = models.ForeignKey(Group, verbose_name="Роль", on_delete=models.CASCADE)
     tg = models.CharField(max_length=32, blank=True, null=True, verbose_name="Телеграм:")
     email = models.EmailField(max_length=32, blank=True, null=True, verbose_name="Почта:")
