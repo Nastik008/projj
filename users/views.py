@@ -21,7 +21,7 @@ def LoginView(request):
             user = authenticate(request, username=form.cleaned_data.get('username'), password=form.cleaned_data.get('password'))
             if user:
                 login(request, user)
-                return redirect('user_profile')
+                return redirect('user_inf')
         messages.error(request, "Invalid credentials provided")
         return redirect('login')
     return render(request, 'users/login.html')
@@ -36,8 +36,8 @@ def ProfileUser(request):
             return redirect('main')
         else:
             messages.error(request, "Invalid credentials provided")
-            return redirect('user_profile')
-    return render(request, 'users/user_profile.html')
+            return redirect('user_inf')
+    return render(request, 'users/user_inf.html')
 
 
 

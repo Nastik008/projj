@@ -2,7 +2,7 @@
 {% block content %}
 <div class="container">
     <div class="row mt-5">
-        <form class="col-md-6 mx-auto mt-5" method="POST" action="{% url 'user_profile' %}">
+        <form class="col-md-6 mx-auto mt-5" method="POST" action="{% url 'user_inf' %}">
             {% csrf_token %}
             <h3>Profile</h3>
             <hr>
